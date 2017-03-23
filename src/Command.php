@@ -3,8 +3,8 @@
 namespace MrClean;
 
 /**
- *
- */
+* primary @author purplebabar(lalung.alexandre@gmail.com)
+*/
 class Command
 {
 

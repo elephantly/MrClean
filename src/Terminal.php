@@ -3,8 +3,8 @@
 namespace MrClean;
 
 /**
- *
- */
+* primary @author purplebabar(lalung.alexandre@gmail.com)
+*/
 class Terminal
 {
     private $success="\033[0;32m";

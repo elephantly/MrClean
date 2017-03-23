@@ -1,6 +1,10 @@
 #!/usr/bin/env php
 <?php
 
+/**
+* primary @author purplebabar(lalung.alexandre@gmail.com)
+*/
+
 if (!defined('DS')) {
     define('DS', DIRECTORY_SEPARATOR);
 }
