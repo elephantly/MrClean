@@ -1,0 +1,22 @@
+{
+    "name": "elephantly/mr-clean",
+    "description": "A command to clean them all",
+    "keywords": ["cache", "clean", "symfony"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "purplebabar",
+            "email": "lalung.alexandre@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "MrClean\\": "src/"
+        }
+    },
+    "bin": ["bin/hardclean"]
+}

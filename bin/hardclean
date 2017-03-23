@@ -1,0 +1,73 @@
+#!/usr/bin/env php
+<?php
+
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
+
+$autoloaders = [];
+$vendorDir = 'vendor';
+if ($composerPath = realpath(getcwd() . '/composer.json')) {
+    $composerJson = json_decode(file_get_contents($composerPath), true);
+    $vendorDir = isset($composerJson['vendor-dir']) ? $composerJson['vendor-dir'] : $vendorDir;
+}
+if ($relative = realpath(getcwd() . "/{$vendorDir}/autoload.php")) {
+    $autoloaders[] = include $relative;
+}
+if (!$absolute = realpath(__DIR__ . '/../../../autoload.php')) {
+    $absolute = realpath(__DIR__ . '/../vendor/autoload.php');
+}
+if ($absolute && $relative !== $absolute) {
+    $autoloaders[] = include $absolute;
+}
+if (!$autoloaders) {
+    echo "\033[1;31mYou need to set up the project dependencies using the following commands: \033[0m" . PHP_EOL;
+    echo 'curl -s http://getcomposer.org/installer | php' . PHP_EOL;
+    echo 'php composer.phar install' . PHP_EOL;
+    exit(1);
+}
+
+use MrClean\Command;
+use MrClean\Terminal;
+
+error_reporting(E_ALL);
+
+$command = new Command($argv);
+$terminal = new Terminal();
+
+$terminal->write("Deleting cache and logs");
+
+try{
+
+    if(is_dir(getcwd()."/app/cache") || is_dir(getcwd()."/app/logs")) {
+        $cache = getcwd()."/app/cache";
+        $logs = getcwd()."/app/logs";
+    }else{
+        $cache = __DIR__ . '/../../../../app/cache';
+        $logs = __DIR__ . '/../../../../app/logs';
+    }
+
+    $terminal->write("Cache files detected at : ".$cache);
+    $terminal->write("Log files detected at : ".$logs);
+
+    if (is_dir($cache))
+    {
+        if (!$command->hasFlags() || $command->is('cache'))
+        {
+            exec("rm -rf {$cache}/*");
+            $terminal->success("Cache files deleted at : ".$cache);
+        }
+    }
+
+    if (is_dir($logs))
+    {
+        if (!$command->hasFlags() || $command->is('logs'))
+        {
+            exec("rm -rf {$logs}/*");
+            $terminal->success("Log files deleted at : ".$logs);
+        }
+    }
+
+} catch (Exception $e) {
+    $terminal->error($e->getMessage());
+}
