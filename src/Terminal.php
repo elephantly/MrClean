@@ -14,17 +14,20 @@ class Terminal
     public function write($text, $line = true)
     {
         echo $line ? $text."\n" : $text;
+        return true;
     }
 
     public function error($text, $line = true)
     {
         $text = $this->error.$text.$this->nc;
         echo $line ? $text."\n" : $text;
+        return true;
     }
 
     public function success($text, $line = true)
     {
         $text = $this->success.$text.$this->nc;
         echo $line ? $text."\n" : $text;
+        return true;
     }
 }

@@ -18,5 +18,11 @@
             "MrClean\\": "src/"
         }
     },
-    "bin": ["bin/hardclean"]
+    "bin": ["bin/mrclean"],
+    "require-dev": {
+        "kahlan/kahlan": "^3.1"
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
 }

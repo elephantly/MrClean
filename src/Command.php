@@ -32,7 +32,7 @@ class Command
         return count($this->_flags);
     }
 
-    public function is($term)
+    public function is($term = null)
     {
         if (in_array("--".$term, $this->_flags))
         {
